@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 import TodoListPlaceHolder from "./TodoListPlaceHolder";
 
 const TodoList = () => {
-  const { todoList, handleDelete } = useTodoList();
+  const { todoList, handleDelete, handleComplete } = useTodoList();
   return (
     <div className="bg-white w-[800px] h-[900px] rounded-2xl">
       <div className="border-b border-gray-200">
@@ -21,6 +21,7 @@ const TodoList = () => {
                 id={id}
                 complete={complete}
                 handleDelete={handleDelete}
+                handleComplete={handleComplete}
                 title={title}
                 key={id}
               ></TodoItem>

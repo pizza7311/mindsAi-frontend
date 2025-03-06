@@ -6,12 +6,22 @@ interface Props {
   complete: boolean;
   title: string;
   handleDelete: (id: number) => void;
+  handleComplete: (id: number) => void;
 }
 
-const TodoItem = ({ id, complete = false, title, handleDelete }: Props) => {
+const TodoItem = ({
+  id,
+  complete = false,
+  title,
+  handleDelete,
+  handleComplete,
+}: Props) => {
   return (
     <div className="bg-blue-100 shadow rounded-4xl h-12 m-2 flex">
-      <div className="p-2 justify-center flex-none hover:cursor-pointer">
+      <div
+        className="p-2 justify-center flex-none hover:cursor-pointer"
+        onClick={() => handleComplete(id)}
+      >
         {complete ? (
           <FaRegCircleCheck size={"30"} color="green"></FaRegCircleCheck>
         ) : (

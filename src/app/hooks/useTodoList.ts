@@ -23,6 +23,22 @@ const useTodoList = () => {
     _saveTodoLocalstorage(newTodos);
   };
 
+  const handleComplete = (todoId: number) => {
+    if (!todoList) return;
+    const newTodos = todoList.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          complete: !todo.complete,
+        };
+      } else {
+        return todo;
+      }
+    });
+    setTodoList(newTodos);
+    _saveTodoLocalstorage(newTodos);
+  };
+
   //로드시 localStorage 확인후 없을경우 jsonPlaceholder
   useEffect(() => {
     const getTodos = async () => {
@@ -45,7 +61,7 @@ const useTodoList = () => {
     getTodos();
   }, []);
 
-  return { todoList, handleDelete };
+  return { todoList, handleDelete, handleComplete };
 };
 
 export default useTodoList;
