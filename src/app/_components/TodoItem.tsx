@@ -17,9 +17,13 @@ const TodoItem = ({
   handleComplete,
 }: Props) => {
   return (
-    <div className="bg-blue-100 shadow rounded-4xl h-12 m-2 flex">
+    <div
+      className={`bg-blue-100 shadow rounded-4xl h-12 m-2 flex ${
+        complete ? "opacity-50" : ""
+      }`}
+    >
       <div
-        className="p-2 justify-center flex-none hover:cursor-pointer"
+        className={`p-2 justify-center flex-none hover:cursor-pointer`}
         onClick={() => handleComplete(id)}
       >
         {complete ? (
@@ -29,7 +33,7 @@ const TodoItem = ({
         )}
       </div>
       <div className="py-2 grow">
-        <h2 className="text-xl">{title}</h2>
+        <h2 className={`text-xl ${complete ? "line-through" : ""}`}>{title}</h2>
       </div>
       <div
         onClick={() => handleDelete(id)}
