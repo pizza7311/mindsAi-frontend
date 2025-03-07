@@ -18,7 +18,7 @@ const TodoItem = ({
 }: Props) => {
   return (
     <div
-      className={`bg-blue-100 shadow rounded-4xl h-12 m-2 flex ${
+      className={`bg-blue-100 hover:bg-blue-300 shadow rounded-4xl h-12 m-2 flex ${
         complete ? "opacity-50" : ""
       }`}
     >
@@ -35,11 +35,13 @@ const TodoItem = ({
       <div className="py-2 grow">
         <h2 className={`text-xl ${complete ? "line-through" : ""}`}>{title}</h2>
       </div>
-      <div
-        onClick={() => handleDelete(id)}
-        className="p-2 mr-1 flex-none hover:cursor-pointer hover:text-red-500"
-      >
-        <AiFillDelete size={"30"} />
+      <div className="p-2 mr-1 flex-none">
+        <button
+          className="hover:cursor-pointer hover:text-red-500"
+          onClick={() => handleDelete(id)}
+        >
+          <AiFillDelete size={"30"} />
+        </button>
       </div>
     </div>
   );
