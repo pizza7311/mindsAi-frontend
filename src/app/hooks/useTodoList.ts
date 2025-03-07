@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TodoItem } from "../types/todo.type";
 
 const useTodoList = () => {
+  const [title, setTitle] = useState("");
   const [todoList, setTodoList] = useState<TodoItem[]>();
 
   const _saveTodoLocalstorage = (todos: TodoItem[]) => {
@@ -19,6 +20,27 @@ const useTodoList = () => {
   const handleDelete = (todoId: number) => {
     if (!todoList) return;
     const newTodos = todoList.filter(({ id }) => id !== todoId);
+    setTodoList(newTodos);
+    _saveTodoLocalstorage(newTodos);
+  };
+
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (title === "" || !todoList) return;
+    //id는 todo list의 가장 높은 id+1
+
+    const id =
+      todoList.length === 0 ? 1 : Math.max(...todoList.map(({ id }) => id)) + 1;
+    const newTodos = todoList.concat([
+      {
+        id,
+        title,
+        complete: false,
+      },
+    ]);
     setTodoList(newTodos);
     _saveTodoLocalstorage(newTodos);
   };
@@ -50,8 +72,8 @@ const useTodoList = () => {
 
         const todos = (await res.json()) as TodoItem[];
         //5개 까지만
-        setTodoList(todos.slice(0, 5));
-        _saveTodoLocalstorage(todos.slice(0, 5));
+        setTodoList(todos.slice(0, 20));
+        _saveTodoLocalstorage(todos.slice(0, 20));
       } else {
         const todos = JSON.parse(items) as TodoItem[];
         setTodoList(todos);
@@ -61,7 +83,14 @@ const useTodoList = () => {
     getTodos();
   }, []);
 
-  return { todoList, handleDelete, handleComplete };
+  return {
+    todoList,
+    handleDelete,
+    handleComplete,
+    title,
+    handleTitle,
+    handleSubmit,
+  };
 };
 
 export default useTodoList;
