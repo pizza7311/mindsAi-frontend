@@ -42,6 +42,7 @@ const useTodoList = () => {
       },
     ]);
     setTodoList(newTodos);
+    setTitle("");
     _saveTodoLocalstorage(newTodos);
   };
 
